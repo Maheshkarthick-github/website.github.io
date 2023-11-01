@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="booking-styles.css">
+    <title>Tourist Place Booking</title>
+</head>
+
+
+<!-- Add a link to open the booking details in a new window -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const bookingForm = document.getElementById('booking-form');
+        const bookingDetails = document.getElementById('booking-details');
+        const openBookingDetailsLink = document.getElementById('open-booking-details-link');
+
+        bookingForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Capture form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const guests = document.getElementById('guests').value;
+
+            // Update the booking details in the HTML
+            document.getElementById('booking-name').textContent = name;
+            document.getElementById('booking-email').textContent = email;
+            document.getElementById('booking-destination').textContent = destination;
+            document.getElementById('booking-date').textContent = date;
+            document.getElementById('booking-guests').textContent = guests;
+
+            // Show the booking details section
+            bookingDetails.style.display = 'block';
+
+            // Show the link to open the booking details in a new window
+            openBookingDetailsLink.style.display = 'block';
+        });
+
+        // Function to open the booking details in a new window
+        openBookingDetailsLink.addEventListener('click', function () {
+            const newWindow = window.open('', 'BookingDetailsWindow', 'width=600,height=400');
+            const detailsHTML = bookingDetails.innerHTML;
+            newWindow.document.write(detailsHTML);
+        });
+    });
+</script>
+
+
+<body>
+    <header>
+        <h1>Book Your Tourist Place</h1>
+    </header>
+    <main>
+        <form id="booking-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Select Destination</label>
+                <select id="destination" name="destination" required>
+                    <option value="paris">Big sur</option>
+                    <option value="newyork">Prescott</option>
+                    <option value="tokyo">Fort mayers</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Tour Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" name="guests" required>
+            </div>
+            <button type="submit">Book Now</button>
+            <button id="proceed-to-payment">Proceed to Payment</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('booking-name').textContent = params.get('name');
+            document.getElementById('booking-email').textContent = params.get('email');
+            // Access and display other form data here
+
+            const proceedButton = document.getElementById('proceed-to-payment');
+            proceedButton.addEventListener('click', function() {
+                // Redirect to the payment page
+                window.location.href = 'payment.html'; // Update with your actual payment page URL
+            });
+        });
+    </script>
+        </form>
+        <a href="javascript:void(0);" id="open-booking-details-link" style="display: none;">Open Booking Details</a>
+        <div id="booking-details" style="display: none;">
+            <h2>Booking Details</h2>
+            <p><strong>Name:</strong> <span id="booking-name"></span></p>
+            <p><strong>Email:</strong> <span id="booking-email"></span></p>
+            <p><strong>Destination:</strong> <span id="booking-destination"></span></p>
+            <p><strong>Date:</strong> <span id="booking-date"></span></p>
+            <p><strong>Number of Guests:</strong> <span id="booking-guests"></span></p>
+        </div>
+    </main>
+</body>
+</html>
